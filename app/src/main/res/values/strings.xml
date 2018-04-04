@@ -1,0 +1,18 @@
+<resources>
+  <string name="app_name">KotlinGank-master</string>
+  <string name="title_home">首页</string>
+  <string name="title_category">分类</string>
+  <string name="title_girl">妹子</string>
+  <string name="title_about">关于</string>
+
+  <string-array name="TypeArray">
+    <item>Android</item>
+    <item>iOS</item>
+    <item>前端</item>
+    <item>拓展资源</item>
+    <item>瞎推荐</item>
+    <item>App</item>
+    <item>休息视频</item>
+  </string-array>
+
+</resources>
