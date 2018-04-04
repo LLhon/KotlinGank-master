@@ -2,6 +2,7 @@ package com.llhon.kotlingank.ui.fragment
 
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.content.ContextCompat
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -12,6 +13,7 @@ import com.llhon.kotlingank.bean.GankBean
 import com.llhon.kotlingank.bean.TypeBean
 import com.llhon.kotlingank.mvp.contract.HomeContract
 import com.llhon.kotlingank.mvp.presenter.HomePresenter
+import com.llhon.kotlingank.utils.UIUtils
 import com.llhon.kotlingank.utils.loge
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -78,60 +80,25 @@ class HomeFragment : BaseLazyFragment(), HomeContract.View {
                     .into(iv)
         }
         if (data.Android != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
-            val tv_title = view.findViewById<TextView>(R.id.tv_title)
-            val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
-            tv_title.text = "Android"
-            addSubTitleView(ll_subtitle, data.Android)
-            ll_content.addView(view)
+            addContentView("Android", data.Android)
         }
         if (data.iOS != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
-            val tv_title = view.findViewById<TextView>(R.id.tv_title)
-            val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
-            tv_title.text = "IOS"
-            addSubTitleView(ll_subtitle, data.iOS)
-            ll_content.addView(view)
+            addContentView("IOS", data.iOS)
         }
         if (data.App != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
-            val tv_title = view.findViewById<TextView>(R.id.tv_title)
-            val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
-            tv_title.text = "App"
-            addSubTitleView(ll_subtitle, data.App)
-            ll_content.addView(view)
+            addContentView("App", data.App)
         }
         if (data.前端 != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
-            val tv_title = view.findViewById<TextView>(R.id.tv_title)
-            val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
-            tv_title.text = "前端"
-            addSubTitleView(ll_subtitle, data.前端)
-            ll_content.addView(view)
+            addContentView("前端", data.前端)
         }
         if (data.拓展资源 != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
-            val tv_title = view.findViewById<TextView>(R.id.tv_title)
-            val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
-            tv_title.text = "拓展资源"
-            addSubTitleView(ll_subtitle, data.拓展资源)
-            ll_content.addView(view)
+            addContentView("拓展资源", data.拓展资源)
         }
         if (data.瞎推荐 != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
-            val tv_title = view.findViewById<TextView>(R.id.tv_title)
-            val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
-            tv_title.text = "瞎推荐"
-            addSubTitleView(ll_subtitle, data.瞎推荐)
-            ll_content.addView(view)
+            addContentView("瞎推荐", data.瞎推荐)
         }
         if (data.休息视频 != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
-            val tv_title = view.findViewById<TextView>(R.id.tv_title)
-            val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
-            tv_title.text = "休息视频"
-            addSubTitleView(ll_subtitle, data.休息视频)
-            ll_content.addView(view)
+            addContentView("休息视频", data.休息视频)
         }
     }
 
@@ -139,9 +106,21 @@ class HomeFragment : BaseLazyFragment(), HomeContract.View {
 
     }
 
+    fun addContentView(title: String, datas: List<GankBean>) {
+        val view = LayoutInflater.from(context).inflate(R.layout.layout_home_content, null, false)
+        val tv_title = view.findViewById<TextView>(R.id.tv_title)
+        val ll_subtitle = view.findViewById<LinearLayout>(R.id.ll_subtitle)
+        tv_title.text = title
+        addSubTitleView(ll_subtitle, datas)
+        ll_content.addView(view)
+    }
+
     fun addSubTitleView(ll_subtitle: LinearLayout, datas: List<GankBean>) {
         for (item in datas) {
             val tv = TextView(context)
+            tv.setTextColor(ContextCompat.getColor(context!!, R.color.ff999999))
+            tv.setPadding(UIUtils.dip2px(context!!, 5f), UIUtils.dip2px(context!!, 5f),
+                    UIUtils.dip2px(context!!, 5f), UIUtils.dip2px(context!!, 5f))
             tv.text = item.desc + "(${item.who})"
             ll_subtitle.addView(tv)
         }

@@ -13,9 +13,9 @@ import android.net.NetworkInfo
  */
 object UIUtils {
 
-    fun dip2px(context: Context, dipValue: Float): Float {
+    fun dip2px(context: Context, dipValue: Float): Int {
         val scale: Float = context.resources.displayMetrics.density
-        return dipValue * scale + 0.5f
+        return (dipValue * scale + 0.5f).toInt()
     }
 
     fun px2dip(context: Context, pxValue: Float): Int {

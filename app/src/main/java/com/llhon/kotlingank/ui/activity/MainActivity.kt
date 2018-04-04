@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentPagerAdapter
 import com.llhon.kotlingank.R
 import com.llhon.kotlingank.base.BaseActivity
 import com.llhon.kotlingank.ui.fragment.AboutFragment
-import com.llhon.kotlingank.ui.fragment.AndroidFragment
 import com.llhon.kotlingank.ui.fragment.CategoryFragment
 import com.llhon.kotlingank.ui.fragment.GirlFragment
+import com.llhon.kotlingank.ui.fragment.HomeFragment
 import com.llhon.kotlingank.utils.loge
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -55,8 +55,8 @@ class MainActivity : BaseActivity() {
 
     fun initFragments() {
         mFragments = ArrayList()
-        mFragments.add(AndroidFragment.newInstance())
-//        mFragments.add(HomeFragment.newInstance())
+//        mFragments.add(AndroidFragment.newInstance())
+        mFragments.add(HomeFragment.newInstance())
         mFragments.add(CategoryFragment.newInstance())
         mFragments.add(GirlFragment.newInstance())
         mFragments.add(AboutFragment.newInstance())
