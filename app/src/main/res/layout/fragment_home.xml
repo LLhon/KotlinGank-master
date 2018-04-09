@@ -25,7 +25,26 @@
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:scaleType="centerCrop"
+        android:visibility="visible"
         app:layout_collapseMode="parallax"/>
+
+      <FrameLayout
+        android:id="@+id/fl_save"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:visibility="gone">
+
+        <TextView
+          android:id="@+id/btn_save"
+          android:layout_width="120dp"
+          android:layout_height="35dp"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:background="@drawable/shape_btn_black"
+          android:textColor="@android:color/black"
+          android:text="保存图片"/>
+
+      </FrameLayout>
 
       <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -40,6 +59,7 @@
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="56dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
@@ -55,8 +75,10 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/fab_margin"
-    android:src="@drawable/ic_search_white_24dp"
+    android:src="@drawable/ic_remove_red_eye_white_24dp"
     app:elevation="5dp"
+    app:pressedTranslationZ="7dp"
+    app:borderWidth="0dp"
     app:layout_anchor="@id/app_bar"
     app:layout_anchorGravity="bottom|end"/>
 

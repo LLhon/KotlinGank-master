@@ -10,8 +10,10 @@ import com.llhon.kotlingank.net.ApiService
 import com.llhon.kotlingank.net.RetrofitClient
 import com.llhon.kotlingank.utils.applySchedulers
 import com.llhon.kotlingank.utils.loge
+import io.reactivex.ObservableSource
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
+import io.reactivex.functions.Function
 
 /**
  * @Project KotlinGank-master
@@ -22,11 +24,13 @@ import io.reactivex.disposables.Disposable
  */
 class HomePresenter(context: Context) : BasePresenter<HomeContract.View>(), HomeContract.Presenter {
 
+    var mDate: String = ""
+
     init {
         mContext = context
     }
 
-    override fun requestData(date: String) {
+    override fun requestData() {
         val apiService = RetrofitClient.getInstance(mContext, ApiService.BASE_URL).create(ApiService::class.java) as ApiService
 //        apiService?.getAndroidData(mCurPage)?.applySchedulers()?.subscribe { httpResult ->
 //            if (!httpResult.error) {
@@ -34,7 +38,14 @@ class HomePresenter(context: Context) : BasePresenter<HomeContract.View>(), Home
 //                mAdapter?.notifyDataSetChanged()
 //            }
 //        }
-        apiService?.getDateData(date)?.applySchedulers()?.subscribe(object : Observer<HttpResult<TypeBean>> {
+        apiService?.getHistoryData()?.flatMap(object : Function<HttpResult<MutableList<String>>, ObservableSource<HttpResult<TypeBean>>> {
+            override fun apply(t: HttpResult<MutableList<String>>): ObservableSource<HttpResult<TypeBean>> {
+                var date: String = t.results[0]
+                mDate = date.replace("-", "/")
+                return apiService?.getDateData(mDate)
+            }
+        })
+                ?.applySchedulers()?.subscribe(object : Observer<HttpResult<TypeBean>> {
 
             override fun onComplete() {
 
@@ -47,7 +58,7 @@ class HomePresenter(context: Context) : BasePresenter<HomeContract.View>(), Home
             override fun onNext(t: HttpResult<TypeBean>) {
                 loge("HomePresenter", "onNext()")
                 if (!t.error) {
-                    mvpView.showSuccessView(t.results)
+                    mvpView.showSuccessView(mDate, t.results)
                 } else {
                     mvpView.showErrorView()
                     Toast.makeText(mContext, "数据异常", Toast.LENGTH_SHORT).show()

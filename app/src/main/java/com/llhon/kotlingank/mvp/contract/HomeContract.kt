@@ -13,11 +13,11 @@ import com.llhon.kotlingank.bean.TypeBean
 class HomeContract {
 
     interface Presenter {
-        fun requestData(date: String)
+        fun requestData()
     }
 
     interface View : BaseView {
-        fun showSuccessView(data: TypeBean)
+        fun showSuccessView(date: String, data: TypeBean)
         fun showErrorView()
     }
 }

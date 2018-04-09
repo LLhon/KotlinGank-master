@@ -48,4 +48,7 @@ interface ApiService {
     @GET("search/query/listview/category/{type}/count/{count}/page/{page}")
     fun getSearchData(@Path("type") type: String, @Path("count") count: Int, @Path("page") page: Int)
             : Observable<HttpResult<MutableList<GankBean>>>
+
+    @GET("day/history")
+    fun getHistoryData() : Observable<HttpResult<MutableList<String>>>
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.kennyc.view.MultiStateView
 import com.llhon.kotlingank.R
 import com.llhon.kotlingank.base.BaseLazyFragment
@@ -11,6 +12,7 @@ import com.llhon.kotlingank.bean.GankBean
 import com.llhon.kotlingank.mvp.contract.TypeContract
 import com.llhon.kotlingank.mvp.presenter.TypePresenter
 import com.llhon.kotlingank.ui.adapter.TypeAdapter
+import com.llhon.kotlingank.utils.UIUtils
 import com.llhon.kotlingank.utils.loge
 import com.zhy.adapter.recyclerview.wrapper.LoadMoreWrapper
 import kotlinx.android.synthetic.main.fragment_type.*
@@ -27,9 +29,10 @@ class TypeFragment : BaseLazyFragment(), TypeContract.View {
     var mDatas: MutableList<GankBean> = ArrayList()
     var mAdapter: TypeAdapter? = null
     var mCurPage: Int = 1
-    var mContinueLoad: Boolean = true
+    var mContinueLoad: Boolean = false
     var mLoadMoreWrapper: LoadMoreWrapper<View>? = null
     var mPresenter: TypePresenter? = null
+    lateinit var mLoadMoreView: View
 
     companion object {
         val INDEX = "index"
@@ -53,7 +56,6 @@ class TypeFragment : BaseLazyFragment(), TypeContract.View {
     }
 
     fun initView() {
-        //TODO 下拉刷新使用SwipeToLoadLayout替换
         var index = arguments?.getInt(INDEX)
         val typeArray = resources.getStringArray(R.array.TypeArray)
         var type = typeArray[index!!]
@@ -72,7 +74,9 @@ class TypeFragment : BaseLazyFragment(), TypeContract.View {
 //                DividerItemDecoration.VERTICAL_LIST, false))
         mAdapter = TypeAdapter(context!!, mDatas)
         mLoadMoreWrapper = LoadMoreWrapper<View>(mAdapter)
-        mLoadMoreWrapper?.setLoadMoreView(LayoutInflater.from(context).inflate(R.layout.layout_load_more, null, false))
+        mLoadMoreView = LayoutInflater.from(context).inflate(R.layout.layout_load_more, null, false)
+        val layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UIUtils.dip2px(context!!, 55f))
+        mLoadMoreView.layoutParams = layoutParams
         recyclerView.adapter = mLoadMoreWrapper
 //        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 //
@@ -104,6 +108,7 @@ class TypeFragment : BaseLazyFragment(), TypeContract.View {
     override fun showSuccessView(datas: MutableList<GankBean>) {
         swipeRefreshLayout.isRefreshing = false
         multiStateView.viewState = MultiStateView.VIEW_STATE_CONTENT
+        mLoadMoreWrapper?.setLoadMoreView(mLoadMoreView)
         if (mCurPage == 1) {
             mDatas.clear()
         }
