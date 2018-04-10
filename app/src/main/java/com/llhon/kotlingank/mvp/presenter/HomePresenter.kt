@@ -32,12 +32,6 @@ class HomePresenter(context: Context) : BasePresenter<HomeContract.View>(), Home
 
     override fun requestData() {
         val apiService = RetrofitClient.getInstance(mContext, ApiService.BASE_URL).create(ApiService::class.java) as ApiService
-//        apiService?.getAndroidData(mCurPage)?.applySchedulers()?.subscribe { httpResult ->
-//            if (!httpResult.error) {
-//                mDatas.addAll(httpResult.results)
-//                mAdapter?.notifyDataSetChanged()
-//            }
-//        }
         apiService?.getHistoryData()?.flatMap(object : Function<HttpResult<MutableList<String>>, ObservableSource<HttpResult<TypeBean>>> {
             override fun apply(t: HttpResult<MutableList<String>>): ObservableSource<HttpResult<TypeBean>> {
                 var date: String = t.results[0]

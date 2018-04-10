@@ -21,6 +21,7 @@ import com.llhon.kotlingank.bean.GankBean
 import com.llhon.kotlingank.bean.TypeBean
 import com.llhon.kotlingank.mvp.contract.HomeContract
 import com.llhon.kotlingank.mvp.presenter.HomePresenter
+import com.llhon.kotlingank.net.WrapperSubscriber
 import com.llhon.kotlingank.ui.activity.WebViewActivity
 import com.llhon.kotlingank.utils.UIUtils
 import com.llhon.kotlingank.utils.loge
@@ -29,6 +30,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.File
@@ -225,9 +227,15 @@ class HomeFragment : BaseLazyFragment(), HomeContract.View {
         })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ t: String? ->
-                    loge("PictureActivity", "image: $t")
-                    showSnackbar(btn_save, "图片已保存到<$t>", Snackbar.LENGTH_INDEFINITE)
+                .subscribe(object : WrapperSubscriber<String>() {
+                    override fun onNext(t: String) {
+                        loge("PictureActivity", "image: $t")
+                        showSnackbar(btn_save, "图片已保存到<$t>", Snackbar.LENGTH_INDEFINITE)
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                        subscribe(d)
+                    }
                 })
     }
 
