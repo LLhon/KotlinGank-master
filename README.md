@@ -3,22 +3,22 @@
 - Gank.io 使用Kotlin语言实现的干货集中营客户端
 
 ## 项目模式
- - MVP
- - Kotlin
- - Retrofit
- - RxJava
- - RxAndroid
- - Material Design
- - Glide
- - ByeBurger
- - MultiStateView
- - base-rvadapter
- - lottie
- - circleimageview
+ * MVP
+ * [Kotlin](https://github.com/JetBrains/kotlin)
+ * [Retrofit](https://github.com/square/retrofit)
+ * [RxJava](https://github.com/ReactiveX/RxJava)
+ * [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+ * Material Design
+ * [Glide](https://github.com/bumptech/glide)
+ * [ByeBurger](https://github.com/githubwing/ByeBurger)
+ * [MultiStateView](https://github.com/Kennyc1012/MultiStateView)
+ * [base-rvadapter]()
+ * [lottie](https://github.com/airbnb/lottie-android)
+ * [circleimageview](https://github.com/hdodenhof/CircleImageView)
 
 ## 下载地址
 
- [Github](https://github.com/LLhon/KotlinGank-master/gank.apk)
+ [Github](https://github.com/LLhon/KotlinGank-master/blob/master/gank.apk)
  
  <br>
  <br>
