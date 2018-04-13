@@ -1,6 +1,6 @@
 ## 介绍
 
-- Gank.io 使用Kotlin语言实现的干货集中营客户端
+- Gank.io Kotlin语言实现的干货集中营客户端
 
 ## 项目模式
  * MVP
