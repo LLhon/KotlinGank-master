@@ -13,7 +13,7 @@
     android:layout_width="100dp"
     android:layout_height="100dp"
     android:layout_gravity="center_horizontal"
-    android:layout_marginTop="120dp"
+    android:layout_marginTop="100dp"
     android:src="@drawable/luna"/>
 
   <TextView
@@ -28,9 +28,8 @@
     android:id="@+id/lottieView"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="50dp"
     android:layout_gravity="center"
-    app:lottie_fileName="animated_laptop_.json"
+    app:lottie_fileName="confetti.json"
     app:lottie_autoPlay="true"
     app:lottie_loop="true"/>
 
